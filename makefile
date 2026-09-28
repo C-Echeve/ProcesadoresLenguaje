@@ -3,10 +3,10 @@ CC = gcc
 CFLAGS = -Wall -O2
 
 # Nombre del ejecutable final
-TARGET = mi_lexico
+TARGET = a.out
 
 # Archivos fuente
-LEX_FILE = scanner.l
+LEX_FILE = scannerBeta.l
 C_FILE = lex.yy.c
 OBJ_FILE = lex.yy.o
 
