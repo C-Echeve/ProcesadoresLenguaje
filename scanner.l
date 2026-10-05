@@ -125,10 +125,126 @@ desc_algoritmo_DR {algoritmo_DR} {identificador_DR} {composicion_secuencial_DR} 
 %%
 
  //PARTE 2: Reglas
-{const} {
-	printf("(constTK, )\n");
+{accion_DR} {
+	printf("(accion_TK, )\n");
 }
-
+{algoritmo_DR} {
+	printf("(algoritmo_TK, )\n");
+}
+{booleano_DR} {
+	printf("(booleano_TK, )\n");
+}
+{cadena_DR} {
+	printf("(cadena_TK, )\n");
+}
+{caracter_DR} {
+	printf("(caracter_TK, )\n");
+}
+{const_DR} {
+	printf("(const_TK, )\n");
+}
+{continuar_DR} {
+	printf("(continuar_TK, )\n");
+}
+{de_DR} {
+	printf("(de_TK, )\n");
+}
+{dev_DR} {
+	printf("(dev_TK, )\n");
+}
+{div_DR} {
+	printf("(div_TK, )\n");
+}
+{ent_DR} {
+	printf("(ent_TK, )\n");
+}
+{entero_DR} {
+	printf("(entero_TK, )\n");
+}
+{e_s_DR} {
+	printf("(e_s_TK, )");
+}
+{faccion_DR} {
+	printf("(faccion_TK, )");
+}
+{falgoritmo_DR} {
+	printf("(falgoritmo_TK)");
+}
+{fconst_DR} {
+	printf("(fconst_TK, )\n");
+}
+{ffuncion_DR} {
+	printf("(ffuncion_TK, )\n");
+}
+{fmientras_DR} {
+	printf("(fmientras_TK, )\n");
+}
+{fpara_DR} {
+	printf("(fpara_TK, )\n");
+}
+{fsi_DR} {
+	printf("(fsi_TK, )\n");
+}
+{ftipo_DR} {
+	printf("(ftipo_TK, )\n");
+}
+{ftupla_DR} {
+	printf("(ftupla_TK, )\n");
+}
+{funcion_DR} {
+	printf("(funcion_TK, )\n");
+}
+{fvar_DR} {
+	printf("(fvar_TK, )\n");
+}
+{hacer_DR} {
+	printf("(hacer_TK, )\n");
+}
+{hasta_DR} {
+	printf("(hasta_TK, )\n");
+}
+{mientras_DR} {
+	printf("(mientras_TK, )\n");
+}
+{mod_DR} {
+	printf("(mod_TK, )\n");
+}
+{no_DR} {
+	printf("(no_TK, )\n");
+}
+{o_DR} {
+	printf("(o_TK, )\n")
+}
+{para_DR} {
+	printf("(para_TK, )\n");
+}
+{real_DR} {
+	printf("(real_TK, )\n");
+}
+{ref_DR} {
+	printf("(ref_TK, )\n");
+}
+{sal_DR} {
+	printf("(sal_TK, )\n");
+}
+{si_DR} {
+	printf("(si_TK, )\n");
+}
+{tabla_DR} {
+	printf("(tabla_TK, )\n");
+}
+{tipo_DR} {
+	printf("(tipo_TK, )\n");
+}
+{tupla_DR} {
+	printf("(tupla_TK, )\n");
+}
+{var_DR} {
+	printf("(var_TK, )\n");
+}
+{y_DR} {
+	printf("(y_TK, )\n");
+}
 
 %%
 
