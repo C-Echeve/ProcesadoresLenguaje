@@ -24,24 +24,100 @@
 
  // PARTE 1.2: Zona de definiciones regulares
 
-letra [A-Z]|[a-z]
-cifra [0-9]
-letra_o_cifra {letra}|{cifra}
-identificador {letra}{letra_o_cifra}*
+letra_DR [A-Z]|[a-z]
+cifra_DR [0-9]
+letra_o_cifra_DR {letra_DR}|{cifra_DR}
+identificador_DR {letra_DR}{letra_o_cifra_DR}*
 
-verdadero (?i:verdadero)
-falso (?i:falso)
+verdadero_DR (?i:verdadero)
+falso_DR (?i:falso)
 
-literal_entero [+-]?{cifra}{cifra}*((e|E){cifra}{cifra}*)?
-literal_real [+-]?{cifra}{cifra}*(.{cifra}{cifra}*)?((e|E){cifra}{cifra}*)?|{literal_entero}(r|R)
-literal_booleano verdadero|falso
-literal_caracter \".\"
-literal_cadena \'.*\'
+literal_entero_DR [+-]?{cifra_DR}{cifra_DR}*([eE]{cifra_DR}{cifra_DR}*)?
+literal_real_DR [+-]?{cifra_DR}{cifra_DR}*(\.{cifra_DR}{cifra_DR}*)?([eE]{cifra_DR}{cifra_DR}*)?|{literal_entero_DR}[rR]
+literal_booleano_DR {verdadero_DR}|{falso_DR}
+literal_caracter_DR \"[^\"]\"
+literal_cadena_DR \'([^\'/]|\/\')*\'
+
+ // Otros posibles tokens
+asignacion_DR :=
+composicion_secuencial_DR ;
+separador_DR ,
+subrango_DR \.\.
+definicion_tipo_var_DR :
+entonces_DR \->
+si_no_si_DR \[\]
+creacion_tipo_DR =
+inicio_array_DR \[
+fin_array_DR \]
+punto_DR \.
+
+ // Operadores relacionales y aritmeticos
+igualdad_DR =
+mayor_estricto_DR >
+menor_estricto_DR <
+mayor_igual_DR >=
+menor_igual_DR <=
+distinto_DR <>
+suma_DR \+
+resta_DR \-
+producto_DR \*
+division_DR \/
+
+ // Comentarios
+comentario_DR \/\/.*
+texto_DR \/\*([^*]|\*+[^*/])*\*+\/
+delimitador_DR [ \t\n]
+comentario_especial_DR \{([^}]|\/\})*\}
+
+ // Palabras reservadas
+accion_DR [aA][cC][Cc][iI][oO][nN]
+algoritmo_DR [aA][lL][gG][oO][rR][iI][tT][mM][oO]
+booleano_DR [bB][oO][oO][lL][eE][aA][nN][oO]
+cadena_DR [cC][aA][dD][eE][nN][aA]
+caracter_DR [cC][aA][rR][aA][cC][tT][eE][rR]
+const_DR [cC][oO][nN][sS][tT]
+continuar_DR [cC][oO][nN][tT][iI][nN][uU][aA][rR]
+de_DR [dD][eE]
+dev_DR [dD][eE][vV]
+div_DR [dD][iI][vV]
+ent_DR [eE][nN][tT]
+entero_DR [eE][nN][tT][eE][rR][oO]
+e_s_DR [eE]\/[sS]
+faccion_DR [fF][aA][cC][Cc][iI][oO][nN]
+falgoritmo_DR [fF][aA][lL][gG][oO][rR][iI][tT][mM][oO]
+fconst_DR [fF][cC][oO][nN][sS][tT]
+ffuncion_DR [fF][fF][uU][nN][cC][iI][oO][nN]
+fmientras_DR [fF][mM][iI][eE][nN][tT][rR][aA][sS]
+fpara_DR [fF][pP][aA][rR][aA]
+fsi_DR [fF][sS][iI]
+ftipo_DR [fF][tT][iI][pP][oO]
+ftupla_DR [fF][tT][uU][pP][lL][aA]
+funcion_DR [fF][uU][nN][cC][iI][oO][nN]
+fvar_DR [fF][vV][aA][rR]
+hacer_DR [hH][aA][cC][eE][rR]
+hasta_DR [hH][aA][sS][tT][aA]
+mientras_DR [mM][iI][eE][nN][tT][rR][aA][sS]
+mod_DR [mM][oO][dD]
+no_DR [nN][oO]
+o_DR [oO]
+para_DR [pP][aA][rR][aA]
+real_DR [rR][eE][aA][lL]
+ref_DR [rR][eE][fF]
+sal_DR [sS][aA][lL]
+si_DR [sS][iI]
+tabla_DR [tT][aA][bB][lL][aA]
+tipo_DR [tT][iI][pP][oO]
+tupla_DR [tT][uU][pP][lL][aA]
+var_DR [vV][aA][rR]
+y_DR [yY]
 
 
 %%
 
  //PARTE 2: Reglas
+{const} {
+	printf("(constTK, )\n");
+}
 
 
 %%
