@@ -221,7 +221,7 @@ y_DR [yY]
 	printf("(no_TK, )\n");
 }
 {o_DR} {
-	printf("(o_TK, )\n")
+	printf("(o_TK, )\n");
 }
 {para_DR} {
 	printf("(para_TK, )\n");

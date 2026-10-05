@@ -6,7 +6,7 @@ CFLAGS = -Wall -O2
 TARGET = a.out
 
 # Archivos fuente
-LEX_FILE = scannerBeta.l
+LEX_FILE = scanner.l
 C_FILE = lex.yy.c
 OBJ_FILE = lex.yy.o
 
