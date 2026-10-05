@@ -32,12 +32,13 @@ identificador_DR {letra_DR}{letra_o_cifra_DR}*
 verdadero_DR (?i:verdadero)
 falso_DR (?i:falso)
 
-literal_entero_DR [+-]?{cifra_DR}{cifra_DR}*((e|E){cifra_DR}{cifra_DR}*)?
-literal_real_DR [+-]?{cifra_DR}{cifra_DR}*(\.{cifra_DR}{cifra_DR}*)?((e|E){cifra_DR}{cifra_DR}*)?|{literal_entero_DR}(r|R)
+literal_entero_DR [+-]?{cifra_DR}{cifra_DR}*([eE]{cifra_DR}{cifra_DR}*)?
+literal_real_DR [+-]?{cifra_DR}{cifra_DR}*(\.{cifra_DR}{cifra_DR}*)?([eE]{cifra_DR}{cifra_DR}*)?|{literal_entero_DR}[rR]
 literal_booleano_DR {verdadero_DR}|{falso_DR}
-literal_caracter_DR \".\"
-literal_cadena_DR \'([^\'\\]|\\\\.)*\'
+literal_caracter_DR \"[^\"]\"
+literal_cadena_DR \'([^\'/]|\/\')*\'
 
+ // Otros posibles tokens
 asignacion_DR :=
 composicion_secuencial_DR ;
 separador_DR ,
@@ -50,19 +51,21 @@ inicio_array_DR \[
 fin_array_DR \]
 punto_DR \.
 
+ // Operadores relacionales y aritmeticos
 igualdad_DR =
 mayor_estricto_DR >
 menor_estricto_DR <
 mayor_igual_DR >=
 menor_igual_DR <=
 distinto_DR <>
-suma_DR +
-resta_DR -
+suma_DR \+
+resta_DR \-
 producto_DR \*
-division_DR /
+division_DR \/
 
+ // Comentarios
 comentario_DR \/\/.*
-texto_DR /\*.*\*/
+texto_DR \/\*([^*]|\*+[^*/])*\*+\/
 delimitador_DR [ \t\n]
 comentario_especial_DR \{([^}]|\/\})*\}
 
@@ -79,7 +82,7 @@ dev_DR [dD][eE][vV]
 div_DR [dD][iI][vV]
 ent_DR [eE][nN][tT]
 entero_DR [eE][nN][tT][eE][rR][oO]
-e/s_DR [eE]/[sS]
+e_s_DR [eE]\/[sS]
 faccion_DR [fF][aA][cC][Cc][iI][oO][nN]
 falgoritmo_DR [fF][aA][lL][gG][oO][rR][iI][tT][mM][oO]
 fconst_DR [fF][cC][oO][nN][sS][tT]
@@ -108,19 +111,6 @@ tupla_DR [tT][uU][pP][lL][aA]
 var_DR [vV][aA][rR]
 y_DR [yY]
 
-lista_d_tipo_DR ({identificador_DR} {creacion_tipo_DR} {d_tipo} {composicion_secuencial_DR})*
-lista_d_cte_DR ({identificador_DR} {creacion_tipo_DR} {literal_DR} {composicion_secuencial_DR})*
-lista_id_DR ({identificador_DR}{separador_DR}|{identificador_DR})*
-lista_d_var_DR ({lista_id_DR} {definicion_tipo_var_DR} {d_tipo} {composicion_secuencial_DR})*
-
-declaracion_tipo_DR {tipo_DR} {lista_d_tipo_DR} {ftipo_DR}{composicion_secuencial_DR}
-declaracion_cte_DR {const_DR} {lista_d_cte_DR} {fconst_DR}{composicion_secuencial_DR}
-declaracion_var_DR {var_DR} {lista_d_var_DR} {fvar_DR}{composicion_secuencial_DR}
-
-decl_globales_DR ({declaracion_tipo_DR} | {declaracion_const_DR}) | {decl_globales_DR}
-cabecera_alg {decl_globales_DR} {decl_a_f_DR} {decl_ent_sal_DR} {comentario_DR}
-bloque_alg_DR {bloque_DR} {comentario_DR}
-desc_algoritmo_DR {algoritmo_DR} {identificador_DR} {composicion_secuencial_DR} {cabecera_alg_DR} {bloque_alg_DR} {falgoritmo_DR} {punto_DR}
 
 %%
 
