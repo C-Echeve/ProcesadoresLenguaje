@@ -115,8 +115,234 @@ y_DR [yY]
 %%
 
  //PARTE 2: Reglas
-{const} {
-	printf("(constTK, )\n");
+
+{comentario_DR} {
+	/* Ignorar comentarios de línea */
+	printf("(comentario_TK, )\n");
+}
+{texto_DR} {
+	/* Ignorar comentarios multilínea */
+	printf("(texto_TK, )\n");
+}
+{comentario_especial_DR} {
+	/* Ignorar comentarios especiales {} */
+	printf("(comentario_especial_TK, )\n");
+}
+{delimitador_DR} {
+	/* Ignorar espacios y saltos de línea */
+	// printf("(delimitador_TK, )\n");
+}
+
+{accion_DR} {
+	printf("(accion_TK, )\n");
+}
+{algoritmo_DR} {
+	printf("(algoritmo_TK, )\n");
+}
+{booleano_DR} {
+	printf("(booleano_TK, )\n");
+}
+{cadena_DR} {
+	printf("(cadena_TK, )\n");
+}
+{caracter_DR} {
+	printf("(caracter_TK, )\n");
+}
+{const_DR} {
+	printf("(const_TK, )\n");
+}
+{continuar_DR} {
+	printf("(continuar_TK, )\n");
+}
+{de_DR} {
+	printf("(de_TK, )\n");
+}
+{dev_DR} {
+	printf("(dev_TK, )\n");
+}
+{div_DR} {
+	printf("(div_TK, )\n");
+}
+{ent_DR} {
+	printf("(ent_TK, )\n");
+}
+{entero_DR} {
+	printf("(entero_TK, )\n");
+}
+{e_s_DR} {
+	printf("(e_s_TK, )\n");
+}
+{faccion_DR} {
+	printf("(faccion_TK, )\n");
+}
+{falgoritmo_DR} {
+	printf("(falgoritmo_TK)\n");
+}
+{fconst_DR} {
+	printf("(fconst_TK, )\n");
+}
+{ffuncion_DR} {
+	printf("(ffuncion_TK, )\n");
+}
+{fmientras_DR} {
+	printf("(fmientras_TK, )\n");
+}
+{fpara_DR} {
+	printf("(fpara_TK, )\n");
+}
+{fsi_DR} {
+	printf("(fsi_TK, )\n");
+}
+{ftipo_DR} {
+	printf("(ftipo_TK, )\n");
+}
+{ftupla_DR} {
+	printf("(ftupla_TK, )\n");
+}
+{funcion_DR} {
+	printf("(funcion_TK, )\n");
+}
+{fvar_DR} {
+	printf("(fvar_TK, )\n");
+}
+{hacer_DR} {
+	printf("(hacer_TK, )\n");
+}
+{hasta_DR} {
+	printf("(hasta_TK, )\n");
+}
+{mientras_DR} {
+	printf("(mientras_TK, )\n");
+}
+{mod_DR} {
+	printf("(mod_TK, )\n");
+}
+{no_DR} {
+	printf("(no_TK, )\n");
+}
+{o_DR} {
+	printf("(o_TK, )\n");
+}
+{para_DR} {
+	printf("(para_TK, )\n");
+}
+{real_DR} {
+	printf("(real_TK, )\n");
+}
+{ref_DR} {
+	printf("(ref_TK, )\n");
+}
+{sal_DR} {
+	printf("(sal_TK, )\n");
+}
+{si_DR} {
+	printf("(si_TK, )\n");
+}
+{tabla_DR} {
+	printf("(tabla_TK, )\n");
+}
+{tipo_DR} {
+	printf("(tipo_TK, )\n");
+}
+{tupla_DR} {
+	printf("(tupla_TK, )\n");
+}
+{var_DR} {
+	printf("(var_TK, )\n");
+}
+{y_DR} {
+	printf("(y_TK, )\n");
+}
+
+{literal_booleano_DR} {
+	printf("(literal_booleano_TK, %s)\n",yytext);
+}
+{literal_real_DR} {
+	char * cadena;
+	if ((cadena = strndup(yytext, strlen(yytext)-1)) == NULL) 
+		errorEnScanner("No hay memoria para strndup() al leer %s\n", yytext);
+	else {
+		printf("(literal_real_TK, %f)\n", atof(cadena));
+		free(cadena); //Para no sobrecargar la memoria
+	}
+}
+{literal_entero_DR} {
+	printf("(literal_entero_TK, %d)\n", atoi(yytext));
+}
+(literal_caracter_DR) {
+	printf("(literal_caracter_TK, %c)\n", yytext[1]);
+}
+(literal_cadena_DR) {
+	printf("(literal_cadena_TK, %s)\n", yytext);
+}
+
+{identificador_DR} {
+	printf("(identificador_TK, %s)\n", yytext);
+}
+
+{asignacion_DR} {
+	printf("(asignacion_TK, %s)\n", yytext);
+}
+{subrango_DR} {
+	printf("(subrango_TK, %s)\n", yytext);
+}
+{entonces_DR} {
+	printf("(entonces_TK, %s)\n", yytext);
+}
+{si_no_si_DR} {
+	printf("(si_no_si_TK, %s)\n", yytext);
+}
+{mayor_igual_DR} {
+	printf("(mayor_igual_TK, %s)\n", yytext);
+}
+{menor_igual_DR} {
+	printf("(menor_igual_TK, %s)\n", yytext);
+}
+{distinto_DR} {
+	printf("(distinto_TK, %s)\n", yytext);
+}
+
+{composicion_secuencial_DR} {
+	printf("(composicion_secuencial_TK, %c)\n", yytext[0]);
+}
+{separador_DR} {
+	printf("(separador_TK, %c)\n", yytext[0]);
+}
+{definicion_tipo_var_DR} {
+	printf("(definicion_tipo_var_TK, %c)\n", yytext[0]);
+}
+{creacion_tipo_DR} {
+	printf("(creacion_tipo_TK, %c)\n", yytext[0]);
+}
+{inicio_array_DR} {
+	printf("(inicio_array_TK, %c)\n", yytext[0]);
+}
+{fin_array_DR} {
+	printf("(fin_array_TK, %c)\n", yytext[0]);
+}
+{punto_DR} {
+	printf("(punto_TK, %c)\n", yytext[0]);
+}
+{mayor_estricto_DR} {
+	printf("(mayor_estricto_TK, %c\n)", yytext[0]);
+}
+{menor_estricto_DR} {
+	printf("(menor_estricto_TK, %c)\n", yytext[0]);
+}
+{suma_DR} {
+	printf("(suma_TK, %c)\n", yytext[0]);
+}
+{resta_DR} {
+	printf("(resta_TK, %c)\n", yytext[0]);
+}
+{producto_DR} {
+	printf("(producto_TK, %c)\n", yytext[0]);
+}
+{division_DR} {
+	printf("(division_TK, %c)\n", yytext[0]);
+}
+
+.	{ //Permite que el resto de caracteres no hagan echo
 }
 
 
