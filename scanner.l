@@ -130,7 +130,7 @@ y_DR [yY]
 }
 {delimitador_DR} {
 	/* Ignorar espacios y saltos de línea */
-	printf("(delimitador_TK, )\n");
+	// printf("(delimitador_TK, )\n");
 }
 
 {accion_DR} {
@@ -170,13 +170,13 @@ y_DR [yY]
 	printf("(entero_TK, )\n");
 }
 {e_s_DR} {
-	printf("(e_s_TK, )");
+	printf("(e_s_TK, )\n");
 }
 {faccion_DR} {
-	printf("(faccion_TK, )");
+	printf("(faccion_TK, )\n");
 }
 {falgoritmo_DR} {
-	printf("(falgoritmo_TK)");
+	printf("(falgoritmo_TK)\n");
 }
 {fconst_DR} {
 	printf("(fconst_TK, )\n");
