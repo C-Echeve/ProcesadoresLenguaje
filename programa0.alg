@@ -15,6 +15,7 @@ algoritmo pruebasVarias;
     var
         tabla : entero[1..10];
         i, comb, pruebaEnt: entero;
+        pruebaEnt1, pruebaEnt2: entero;
         x, pruebaReal: real;
         correcto, pruebaBool: booleano;
         inicial, pruebaCaracter, pruebaCaracterVacio: caracter;
@@ -54,8 +55,9 @@ algoritmo pruebasVarias;
     pruebaEnt := 1 + -1;
     pruebaEnt := 1 - +1;
     pruebaEnt := 1 - -1;
-    pruebaEnt := -1;
-    pruebaEnt := +1;
+    pruebaEnt1 := -1;
+    pruebaEnt2 := +1;
+    pruebaEnt := pruebaEnt1 + pruebaEnt2;
 
     pruebaReal := 12r;
     pruebaReal := 1.5e-2;
