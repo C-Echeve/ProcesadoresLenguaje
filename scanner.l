@@ -3,11 +3,6 @@
  //Fecha inicio: 21/09/2026
  //Fecha fin: -
 
- //Para poder probar el ejemplo debe:
- //1-Usar flex ejecutando flex scannerBeta.l
- //2-Compilar el fichero generado por flex con la opcion -lfl (-ll en OSx)
- //3-Ejecutar el fichero resultante
- //4-Introducir lo que quiera que lea el scanner mediante el teclado
 
  //PARTE 1: ZONA DE DECLARACIONES
  //PARTE 1.1: Constantes manifiestas y codigo necesario para el .c que genera flex 
@@ -16,7 +11,7 @@
 	// Headers standard necesarios
 	#include <stdio.h> //Para poder escribir en el terminal
 	#include <stdlib.h> //Para usar exit()
-	#include <strings.h> //Para trabajar con cadenas de caracteres
+	#include <string.h> //Para trabajar con cadenas de caracteres
 	
 	void errorEnScanner(char*, char*); //prototipo necesario para compilar
 	
@@ -33,10 +28,10 @@ verdadero_DR (?i:verdadero)
 falso_DR (?i:falso)
 
 literal_entero_DR [+-]?{cifra_DR}{cifra_DR}*([eE]{cifra_DR}{cifra_DR}*)?
-literal_real_DR [+-]?{cifra_DR}{cifra_DR}*(\.{cifra_DR}{cifra_DR}*)?([eE]{cifra_DR}{cifra_DR}*)?|{literal_entero_DR}[rR]
+literal_real_DR [+-]?{cifra_DR}{cifra_DR}*(\.{cifra_DR}{cifra_DR}*)?([eE][+-]?{cifra_DR}{cifra_DR}*)?|{literal_entero_DR}[rR]
 literal_booleano_DR {verdadero_DR}|{falso_DR}
 literal_caracter_DR \"[^\"]\"
-literal_cadena_DR \'([^\'/]|\/\')*\'
+literal_cadena_DR \'([^']|\/')*\'
 
  // Otros posibles tokens
 asignacion_DR :=
@@ -52,6 +47,8 @@ fin_array_DR \]
 punto_DR \.
 
  // Operadores relacionales y aritmeticos
+parentesis_apertura_DR \(
+parentesis_cierre_DR \)
 igualdad_DR =
 mayor_estricto_DR >
 menor_estricto_DR <
@@ -70,46 +67,46 @@ delimitador_DR [ \t\n]
 comentario_especial_DR \{([^}]|\/\})*\}
 
  // Palabras reservadas
-accion_DR [aA][cC][Cc][iI][oO][nN]
-algoritmo_DR [aA][lL][gG][oO][rR][iI][tT][mM][oO]
-booleano_DR [bB][oO][oO][lL][eE][aA][nN][oO]
-cadena_DR [cC][aA][dD][eE][nN][aA]
-caracter_DR [cC][aA][rR][aA][cC][tT][eE][rR]
-const_DR [cC][oO][nN][sS][tT]
-continuar_DR [cC][oO][nN][tT][iI][nN][uU][aA][rR]
-de_DR [dD][eE]
-dev_DR [dD][eE][vV]
-div_DR [dD][iI][vV]
-ent_DR [eE][nN][tT]
-entero_DR [eE][nN][tT][eE][rR][oO]
-e_s_DR [eE]\/[sS]
-faccion_DR [fF][aA][cC][Cc][iI][oO][nN]
-falgoritmo_DR [fF][aA][lL][gG][oO][rR][iI][tT][mM][oO]
-fconst_DR [fF][cC][oO][nN][sS][tT]
-ffuncion_DR [fF][fF][uU][nN][cC][iI][oO][nN]
-fmientras_DR [fF][mM][iI][eE][nN][tT][rR][aA][sS]
-fpara_DR [fF][pP][aA][rR][aA]
-fsi_DR [fF][sS][iI]
-ftipo_DR [fF][tT][iI][pP][oO]
-ftupla_DR [fF][tT][uU][pP][lL][aA]
-funcion_DR [fF][uU][nN][cC][iI][oO][nN]
-fvar_DR [fF][vV][aA][rR]
-hacer_DR [hH][aA][cC][eE][rR]
-hasta_DR [hH][aA][sS][tT][aA]
-mientras_DR [mM][iI][eE][nN][tT][rR][aA][sS]
-mod_DR [mM][oO][dD]
-no_DR [nN][oO]
-o_DR [oO]
-para_DR [pP][aA][rR][aA]
-real_DR [rR][eE][aA][lL]
-ref_DR [rR][eE][fF]
-sal_DR [sS][aA][lL]
-si_DR [sS][iI]
-tabla_DR [tT][aA][bB][lL][aA]
-tipo_DR [tT][iI][pP][oO]
-tupla_DR [tT][uU][pP][lL][aA]
-var_DR [vV][aA][rR]
-y_DR [yY]
+accion_DR (?i:accion)
+algoritmo_DR (?i:algoritmo)
+booleano_DR (?i:booleano)
+cadena_DR (?i:cadena)
+caracter_DR (?i:caracter)
+const_DR (?i:const)
+continuar_DR (?i:continuar)
+de_DR (?i:de)
+dev_DR (?i:dev)
+div_DR (?i:div)
+ent_DR (?i:ent)
+entero_DR (?i:entero)
+e_s_DR (?i:e\/s)
+faccion_DR (?i:faccion)
+falgoritmo_DR (?i:falgoritmo)
+fconst_DR (?i:fconst)
+ffuncion_DR (?i:ffuncion)
+fmientras_DR (?i:fmientras)
+fpara_DR (?i:fpara)
+fsi_DR (?i:fsi)
+ftipo_DR (?i:ftipo)
+ftupla_DR (?i:ftupla)
+funcion_DR (?i:funcion)
+fvar_DR (?i:fvar)
+hacer_DR (?i:hacer)
+hasta_DR (?i:hasta)
+mientras_DR (?i:mientras)
+mod_DR (?i:mod)
+no_DR (?i:no)
+o_DR (?i:o)
+para_DR (?i:para)
+real_DR (?i:real)
+ref_DR (?i:ref)
+sal_DR (?i:sal)
+si_DR (?i:si)
+tabla_DR (?i:tabla)
+tipo_DR (?i:tipo)
+tupla_DR (?i:tupla)
+var_DR (?i:var)
+y_DR (?i:y)
 
 
 %%
@@ -117,11 +114,11 @@ y_DR [yY]
  //PARTE 2: Reglas
 
 {comentario_DR} {
-	/* Ignorar comentarios de línea */
+	/* Ignorar comentarios de linea */
 	printf("(comentario_TK, )\n");
 }
 {texto_DR} {
-	/* Ignorar comentarios multilínea */
+	/* Ignorar comentarios multilinea */
 	printf("(texto_TK, )\n");
 }
 {comentario_especial_DR} {
@@ -129,7 +126,7 @@ y_DR [yY]
 	printf("(comentario_especial_TK, )\n");
 }
 {delimitador_DR} {
-	/* Ignorar espacios y saltos de línea */
+	/* Ignorar espacios y saltos de linea */
 	// printf("(delimitador_TK, )\n");
 }
 
@@ -257,22 +254,37 @@ y_DR [yY]
 {literal_booleano_DR} {
 	printf("(literal_booleano_TK, %s)\n",yytext);
 }
+{literal_entero_DR} {
+	printf("(literal_entero_TK, %ld)\n", (long) strtod(yytext, NULL));
+}
 {literal_real_DR} {
 	char * cadena;
-	if ((cadena = strndup(yytext, strlen(yytext)-1)) == NULL) 
+	size_t longitud = strlen(yytext);
+	if (yytext[longitud - 1] == 'r' || yytext[longitud - 1] == 'R') {
+        cadena = strndup(yytext, longitud - 1);
+	} else {
+        cadena = strdup(yytext);
+	}
+	if (cadena == NULL) {
 		errorEnScanner("No hay memoria para strndup() al leer %s\n", yytext);
-	else {
+	} else {
 		printf("(literal_real_TK, %f)\n", atof(cadena));
 		free(cadena); //Para no sobrecargar la memoria
 	}
 }
-{literal_entero_DR} {
-	printf("(literal_entero_TK, %d)\n", atoi(yytext));
-}
-(literal_caracter_DR) {
+{literal_caracter_DR} {
+	/* Por el momento literal_caracter_DR solo admite 1 unico caracter
+	   para que acepte "/"" y el caracter sea " habria que cambiar la
+	   definicion a \"([^\"]|\/")\"
+	if ((yytext[1] == '/' ) && (strlen(yytext) > 3)) {
+		printf("(literal_caracter_TK, %c)\n", yytext[2]);
+	} else {
+		printf("(literal_caracter_TK, %c)\n", yytext[1]);
+	}
+	*/
 	printf("(literal_caracter_TK, %c)\n", yytext[1]);
 }
-(literal_cadena_DR) {
+{literal_cadena_DR} {
 	printf("(literal_cadena_TK, %s)\n", yytext);
 }
 
@@ -323,8 +335,17 @@ y_DR [yY]
 {punto_DR} {
 	printf("(punto_TK, %c)\n", yytext[0]);
 }
+{parentesis_apertura_DR} {
+	printf("(parentesis_apertura_TK, %c)\n", yytext[0]);
+}
+{parentesis_cierre_DR} {
+	printf("(parentesis_cierre_TK, %c)\n", yytext[0]);
+}
+{igualdad_DR} {
+	printf("(igualdad_TK, %c)\n", yytext[0]);
+}
 {mayor_estricto_DR} {
-	printf("(mayor_estricto_TK, %c\n)", yytext[0]);
+	printf("(mayor_estricto_TK, %c)\n", yytext[0]);
 }
 {menor_estricto_DR} {
 	printf("(menor_estricto_TK, %c)\n", yytext[0]);

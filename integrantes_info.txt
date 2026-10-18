@@ -1,0 +1,12 @@
+Integrantes:
+    Jialiang Chen
+    Carlos Echeverría Laborda
+
+Información:
+    Para compilar lo necesario: make o make all
+    Para ejecutar sin fichero y escribir el programa a escanear en la terminal:
+        ./a.out
+    Para ejecutar con fichero y escanear a partir del contenido del mismo:
+        cat programaX.alg | ./a.out
+        ./a.out < programaX.alg
+    Para limpiar los archivos generados por la compilación: make clean
