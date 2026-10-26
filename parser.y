@@ -27,12 +27,89 @@
  //PARTE 2.1: Declaracion de los tokens del lenguaje y declaracion de los tipos del
  // union en los que flex nos enviara el valor asociado a los tokens multivaluados
 
-%token constTK
-%token <literal> literalTK
-%token fconstTK
-%token igualTK
-%token <cadena> nombreCteTK
-%token puntoYComaTK
+
+%token accion_TK
+%token algoritmo_TK
+%token booleano_TK
+%token cadena_TK
+%token caracter_TK
+%token const_TK
+%token continuar_TK
+%token de_TK
+%token dev_TK
+%token div_TK
+%token ent_TK
+%token entero_TK
+%token e_s_TK
+%token faccion_TK
+%token falgoritmo_TK
+%token fconst_TK%token
+%token ffuncion_TK
+%token fmientras_TK
+%token fpara_TK
+%token fsi_TK
+%token ftipo_TK
+%token ftupla_TK
+%token funcion_TK
+%token fvar_TK
+%token hacer_TK
+%token hasta_TK
+%token mientras_TK
+%token mod_TK
+%token no_TK
+%token o_TK
+%token para_TK
+%token real_TK
+%token ref_TK
+%token sal_TK
+%token si_TK
+%token tabla_TK
+%token tipo_TK
+%token tupla_TK
+%token var_TK
+%token y_TK
+
+%token literal_booleano_TK
+%token literal_entero_TK
+%token literal_real_TK
+%token literal_caracter_TK
+%token literal_cadena_TK
+
+%token identificador_TK
+
+%token asignacion_TK
+%token subrango_TK
+%token entonces_TK
+%token si_no_si_TK
+%token mayor_igual_TK
+%token menor_igual_TK
+%token distinto_TK
+
+%token composicion_secuencial_TK
+%token separador_TK
+%token definicion_tipo_var_TK
+%token creacion_tipo_TK
+%token inicio_array_TK
+%token fin_array_TK
+%token punto_TK
+%token parentesis_apertura_TK
+%token parentesis_cierre_TK
+%token igualdad_TK
+%token mayor_estricto_TK
+%token menor_estricto_TK
+%token suma_TK
+%token resta_TK
+%token producto_TK
+%token division_TK
+
+
+ //	%token <literal> literal_TK
+ //	%token fconst_TK
+ //	%token igual_TK
+ //	%token <cadena> nombreCteTK
+ //	%token puntoYComa_TK
+	
+
 
  //PARTE 2.2: Definiciones (algunas innecearias) de prioridades
 
