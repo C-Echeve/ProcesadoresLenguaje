@@ -70,6 +70,8 @@ declaracionDeConstanteV : nombreCteTK igualTK literalTK {
 		}
 	;
 
+desc_algoritmo : algoritmo_TK
+
 %%
 
 
