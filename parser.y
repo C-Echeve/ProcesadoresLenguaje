@@ -127,28 +127,170 @@
 
  //PARTE 2.4: Asignacion de traducciones a las variables
 
-%type <entero> listaDeclConstantesV  //para contar las que se definen
+ // %type <entero> listaDeclConstantesV  //para contar las que se definen
 
 %%
 
-declaracionConstantesV: constTK listaDeclConstantesV fconstTK{
-			printf("COMPILADOR: Se ha creado la tabla de constantes con %d constantes\n", $2);
-			}
-	;
-listaDeclConstantesV :  declaracionDeConstanteV {
-			$$= 1;
-		}
-	| listaDeclConstantesV puntoYComaTK listaDeclConstantesV {
-			$$= $1 + $3;
+desc_algoritmo : algoritmo_TK identificador_TK composicion_secuencial_TK cabecera_alg bloque_alg falgoritmo_TK punto_TK {
+
 		}
 	;
-declaracionDeConstanteV : nombreCteTK igualTK literalTK {
-			insertaConstante(&tc, $1, $3);
+cabecera_alg : decl_globales decl_a_f decl_ent_sal comentario_TK {
+
+		}
+	;
+bloque_alg : bloque comentario_TK {
+
+		}
+	;
+decl_globales : /*empty*/ {}
+	| declaracion_tipo decl_globales {
+
+		}
+	| declaracion_const decl_globales {
+
+		}
+	;
+decl_a_f : /*empty*/ {}
+	| accion_d decl_a_f {
+
+		}
+	| funcion_d decl_a_f {
+
+		}
+	;
+bloque : declaraciones instrucciones {
+
+		}
+	;
+declaraciones : /*empty*/ {}
+	| declaracion_tipo declaraciones {
+
+		}
+	| declaracion_const declaraciones {
+
+		}
+	| declaracion_var declaraciones {
+
 		}
 	;
 
-desc_algoritmo : algoritmo_TK
+declaracion_tipo : tipo_TK lista_d_tipo ftipo_TK composicion_secuencial_TK {
 
+		}
+	;
+declaracion_cte : const_TK lista_d_cte fconst_TK composicion_secuencial_TK {
+
+		}
+	;
+declaracion_var : var_TK lista_d_var fvar_TK composicion_secuencial_TK {
+
+		}
+	;
+
+lista_d_tipo : /*empty*/ {}
+	| identificador_TK creacion_tipo_TK d_tipo composicion_secuencial_TK lista_d_tipo{
+
+		}
+	;
+d_tipo : tupla_TK lista_campos ftupla_TK {
+
+		}
+	| tabla_TK inicio_array_TK expresion_t subrango_TK expresion_t fin_array_TK de_TK d_tipo {
+
+		}
+	;
+d_tipo : identificador_TK {
+
+		}
+	| expresion_t subrango_TK expresion_t {
+
+		}
+	| ref_TK d_tipo {
+
+		}
+	| entero_TK {
+
+		}
+	| booleano_TK {
+
+		}
+	| caracter_TK {
+
+		}
+	| real_TK {
+
+		}
+	| cadena_TK {
+
+		}				
+	;
+
+expresion_t : expresion {
+
+		}
+	| literal_caracter_TK {
+
+		}
+	;
+lista_campos : /*empty*/ {}
+	| identificador_TK definicion_tipo_var_TK d_tipo composicion_secuencial_TK lista_campos {
+
+		}
+	;
+
+lista_d_cte : /*empty*/ {
+
+		} 
+	| identificador_TK creacion_tipo_TK literal_booleano_TK {
+
+		}
+	| identificador_TK creacion_tipo_TK literal_cadena_TK {
+
+		}
+	| identificador_TK creacion_tipo_TK literal_caracter_TK {
+
+		}
+	| identificador_TK creacion_tipo_TK literal_entero_TK {
+
+		}
+	| identificador_TK creacion_tipo_TK literal_real_TK {
+
+		}
+	;
+lista_d_var : /*empty*/ {
+
+		}
+	| lista_id definicion_tipo_var_TK d_tipo composicion_secuencial_TK lista_d_var {
+
+		}
+	;
+lista_id : identificador_TK separador_TK lista_id {
+
+		}
+	| identificador_TK {
+
+		}
+	;
+
+decl_ent_sal : decl_ent {
+
+		}
+	| decl_ent decl_salida {
+
+		}
+	| decl_salida {
+
+		}
+	;
+decl_ent : ent_TK lista_d_var {
+
+		}
+	;
+decl_sal : sal_TK lista_d_var {
+
+		}
+	;
 %%
 
 
