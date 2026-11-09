@@ -291,6 +291,209 @@ decl_sal : sal_TK lista_d_var {
 
 		}
 	;
+
+expresion : exp_a {
+
+		}
+	| exp_b {
+
+		}
+	funcion_ll {
+
+		}
+	;
+exp_a : exp_a suma_TK exp_a {
+
+		}
+	| exp_a resta_TK exp_a {
+
+		}
+	| exp_a producto_TK exp_a {
+
+		}
+	| exp_a division_TK exp_a {
+
+		}
+	| exp_a mod_TK exp_a {
+
+		}
+	| exp_a div_TK exp_a {
+
+		}
+	| parentesis_apertura_TK exp_a parentesis_cierre_TK {
+
+		}
+	| operando {
+
+		}
+	| literal_entero_TK {
+
+		}
+	| literal_real_TK {
+
+		}
+	| resta_TK exp_a {
+
+		}
+	| suma_TK exp_a {
+
+		}
+	;
+exp_b : exp_b y_TK exp_b {
+
+		}
+	| exp_b o_TK exp_b {
+
+		}
+	| no_TK exp_b {
+
+		}
+	| operando {
+
+		}
+	| verdadero_DR {
+
+		}
+	| falso_DR {
+
+		}
+	| expresion menor_estricto_TK expresion {
+
+		}
+	| expresion mayor_estricto_TK expresion {
+
+		}
+	| expresion igualdad_TK expresion {
+
+		}
+	| expresion distinto_TK expresion {
+
+		}
+	| expresion mayor_igual_TK expresion {
+
+		}
+	| expresion menor_igual_TK expresion {
+
+		}
+	;
+operando : identificador_TK {
+
+		}
+	| operando punto_TK operando {
+
+		}
+	| operando inicio_array_TK expresion fin_array_TK {
+
+		}
+	| operando ref_TK {
+
+		}
+	;
+
+instrucciones : instruccion composicion_secuencial_TK instrucciones {
+
+		}
+	| instruccion {
+
+		}
+	;
+instruccion : continuar_TK {
+
+		}
+	| asignacion {
+
+		}
+	| alternativa {
+
+		}
+	| iteracion {
+
+		}
+	| accion_ll {
+
+		}
+	;
+asignacion : operando asignacion_TK expresion {
+
+		}
+	;
+alternativa : si_TK expresion entonces_TK instrucciones lista_opciones fsi_TK {
+
+		}
+	;
+lista_opciones : /*empty*/ {
+
+		}
+	| si_no_si_TK expresion entonces_TK instrucciones lista_opciones {
+
+		}
+	;
+iteracion : it_cota_fija {
+
+		}
+	| it_cota_exp {
+
+		}
+	;
+it_cota_exp : mientras_TK expresion hacer_TK instrucciones fmientras_TK {
+
+		}
+	;
+it_cota_fija : para_TK identificador_TK asignacion_TK expresion hasta_TK expresion hacer_TK instrucciones fpara_TK {
+
+		}
+	;
+
+accion_d : accion_TK a_cabecera bloque faccion_TK {
+
+		}
+	;
+funcion_d : funcion_TK f_cabecera bloque dev_TK expresion ffuncion_TK {
+
+		}
+	;
+a_cabecera : identificador_TK parentesis_apertura_TK d_par_form parentesis_cierre_TK composicion_secuencial_TK {
+
+		}
+	;
+f_cabecera : identificador_TK parentesis_apertura_TK lista_d_var parentesis_cierre_TK dev_TK d_tipo composicion_secuencial_TK {
+
+		}
+	;
+d_par_form : /*empty*/ {
+
+		} 
+	| d_p_form composicion_secuencial_TK d_par_form {
+
+		}
+	;
+d_p_form : ent_TK lista_id definicion_tipo_var_TK d_tipo {
+
+		}
+	| sal_TK lista_id definicion_tipo_var_TK d_tipo {
+
+		}
+	| e_s_TK lista_id definicion_tipo_var_TK d_tipo {
+
+		}
+	;
+
+accion_ll : identificador_TK parentesis_apertura_TK l_ll parentesis_cierre_TK {
+
+		}
+	;
+funcion_ll : identificador_TK parentesis_apertura_TK l_ll parentesis_cierre_TK {
+
+		}
+	;
+l_ll : expresion separador_TK l_ll {
+
+		}
+	| expresion {
+
+		}
+	;
+
 %%
 
 
