@@ -24,3 +24,4 @@ $(C_FILE): $(LEX_FILE)
 # Limpiar archivos generados
 clean:
 	rm -f $(TARGET) $(C_FILE) $(OBJ_FILE)
+	rm *.tab.* lex.yy.c *.output

@@ -27,7 +27,7 @@
  //PARTE 2.1: Declaracion de los tokens del lenguaje y declaracion de los tipos del
  // union en los que flex nos enviara el valor asociado a los tokens multivaluados
 
-
+%token comentario_TK
 %token accion_TK
 %token algoritmo_TK
 %token booleano_TK
@@ -91,6 +91,9 @@
 %token creacion_tipo_TK
 %token inicio_array_TK
 %token fin_array_TK
+%token entrada_array_TK
+%token salida_array_TK
+%token acceso_tupla_TK
 %token punto_TK
 %token parentesis_apertura_TK
 %token parentesis_cierre_TK
@@ -376,10 +379,10 @@ exp_b : exp_b y_TK exp_b {
 operando : identificador_TK {
 
 		}
-	| operando punto_TK operando {
+	| operando acceso_tupla_TK operando {
 
 		}
-	| operando inicio_array_TK expresion fin_array_TK {
+	| operando entrada_array_TK expresion salida_array_TK {
 
 		}
 	| operando ref_TK {

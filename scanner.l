@@ -44,6 +44,9 @@ si_no_si_DR \[\]
 creacion_tipo_DR =
 inicio_array_DR \[
 fin_array_DR \]
+entrada_array_DR \[
+salida_array_DR \]
+acceso_tupla_DR \.
 punto_DR \.
 
  // Operadores relacionales y aritmeticos
@@ -332,6 +335,17 @@ y_DR (?i:y)
 {fin_array_DR} {
 	printf("(fin_array_TK, %c)\n", yytext[0]);
 }
+{entrada_array_DR} {
+	printf("(entrada_array_TK, %c)\n", yytext[0]);
+}
+{salida_array_DR} {
+	printf("(salida_array_TK, %c)\n", yytext[0]);
+}
+
+{acceso_tupla_DR} {
+	printf("(acceso_tupla_TK, %c)\n", yytext[0]);
+}
+
 {punto_DR} {
 	printf("(punto_TK, %c)\n", yytext[0]);
 }
