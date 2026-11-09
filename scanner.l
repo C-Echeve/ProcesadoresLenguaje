@@ -27,8 +27,8 @@ identificador_DR {letra_DR}{letra_o_cifra_DR}*
 verdadero_DR (?i:verdadero)
 falso_DR (?i:falso)
 
-literal_entero_DR [+-]?{cifra_DR}{cifra_DR}*([eE]{cifra_DR}{cifra_DR}*)?
-literal_real_DR [+-]?{cifra_DR}{cifra_DR}*(\.{cifra_DR}{cifra_DR}*)?([eE][+-]?{cifra_DR}{cifra_DR}*)?|{literal_entero_DR}[rR]
+literal_entero_DR {cifra_DR}{cifra_DR}*([eE]{cifra_DR}{cifra_DR}*)?
+literal_real_DR {cifra_DR}{cifra_DR}*(\.{cifra_DR}{cifra_DR}*)?([eE][+-]?{cifra_DR}{cifra_DR}*)?|{literal_entero_DR}[rR]
 literal_booleano_DR {verdadero_DR}|{falso_DR}
 literal_caracter_DR \"[^\"]\"
 literal_cadena_DR \'([^']|\/')*\'

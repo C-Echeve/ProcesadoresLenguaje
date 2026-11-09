@@ -43,7 +43,7 @@
 %token e_s_TK
 %token faccion_TK
 %token falgoritmo_TK
-%token fconst_TK%token
+%token fconst_TK
 %token ffuncion_TK
 %token fmientras_TK
 %token fpara_TK
@@ -147,7 +147,7 @@ decl_globales : /*empty*/ {}
 	| declaracion_tipo decl_globales {
 
 		}
-	| declaracion_const decl_globales {
+	| declaracion_cte decl_globales {
 
 		}
 	;
@@ -167,7 +167,7 @@ declaraciones : /*empty*/ {}
 	| declaracion_tipo declaraciones {
 
 		}
-	| declaracion_const declaraciones {
+	| declaracion_cte declaraciones {
 
 		}
 	| declaracion_var declaraciones {
@@ -276,10 +276,10 @@ lista_id : identificador_TK separador_TK lista_id {
 decl_ent_sal : decl_ent {
 
 		}
-	| decl_ent decl_salida {
+	| decl_ent decl_sal {
 
 		}
-	| decl_salida {
+	| decl_sal {
 
 		}
 	;
@@ -351,10 +351,7 @@ exp_b : exp_b y_TK exp_b {
 	| operando {
 
 		}
-	| verdadero_DR {
-
-		}
-	| falso_DR {
+	| literal_booleano_TK { 
 
 		}
 	| expresion menor_estricto_TK expresion {
