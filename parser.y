@@ -56,8 +56,8 @@
 %token hasta_TK
 %token mientras_TK
 %token mod_TK
-%token no_TK
-%token o_TK
+%right no_TK
+%left o_TK
 %token para_TK
 %token real_TK
 %token ref_TK
@@ -67,7 +67,7 @@
 %token tipo_TK
 %token tupla_TK
 %token var_TK
-%token y_TK
+%left y_TK
 
 %token literal_booleano_TK
 %token literal_entero_TK
@@ -100,10 +100,8 @@
 %token igualdad_TK
 %token mayor_estricto_TK
 %token menor_estricto_TK
-%token suma_TK
-%token resta_TK
-%token producto_TK
-%token division_TK
+%left suma_TK resta_TK
+%left producto_TK division_TK
 
 
  //	%token <literal> literal_TK
@@ -116,9 +114,7 @@
 
  //PARTE 2.2: Definiciones (algunas innecearias) de prioridades
 
-%nonassoc constTK //hago no asociativo y de baja prioridad a constTK
-%right fconstTK //hago fcosntTK es mas prioritario que constTK y asociativo a derecha
-%left puntoYComaTK //Hago muy prioritario y asociativo a izquierdas al ;
+
 
  //PARTE 2.3: Creamos el union necesario para valores de flex y traducciones de bison
 
@@ -301,7 +297,7 @@ expresion : exp_a {
 	| exp_b {
 
 		}
-	funcion_ll {
+	| funcion_ll {
 
 		}
 	;
@@ -493,7 +489,6 @@ l_ll : expresion separador_TK l_ll {
 
 		}
 	;
-
 %%
 
 
