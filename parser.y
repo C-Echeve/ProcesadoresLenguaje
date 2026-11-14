@@ -27,7 +27,7 @@
  //PARTE 2.1: Declaracion de los tokens del lenguaje y declaracion de los tipos del
  // union en los que flex nos enviara el valor asociado a los tokens multivaluados
 
-%token comentario_TK
+ // 2.1.1 Palabras reservadas
 %token accion_TK
 %token algoritmo_TK
 %token booleano_TK
@@ -37,7 +37,6 @@
 %token continuar_TK
 %token de_TK
 %token dev_TK
-%token div_TK
 %token ent_TK
 %token entero_TK
 %token e_s_TK
@@ -55,9 +54,6 @@
 %token hacer_TK
 %token hasta_TK
 %token mientras_TK
-%token mod_TK
-%right no_TK
-%left o_TK
 %token para_TK
 %token real_TK
 %token ref_TK
@@ -67,53 +63,78 @@
 %token tipo_TK
 %token tupla_TK
 %token var_TK
-%left y_TK
 
+ // 2.1.2 Literales
 %token literal_booleano_TK
 %token literal_entero_TK
 %token literal_real_TK
 %token literal_caracter_TK
 %token literal_cadena_TK
 
+ // 2.1.3 Identificador
 %token identificador_TK
 
-%token asignacion_TK
-%token subrango_TK
-%token entonces_TK
-%token si_no_si_TK
+ // 2.1.4 Operadores aritméticos
+%token suma_TK
+%token resta_TK
+%token producto_TK
+%token division_TK
+%token mod_TK
+%token div_TK
+
+ // 2.1.5 Operadores lógicos y relacionales
+%token no_TK
+%token o_TK
+%token y_TK
+%token igualdad_TK
+%token distinto_TK
+%token mayor_estricto_TK
+%token menor_estricto_TK
 %token mayor_igual_TK
 %token menor_igual_TK
-%token distinto_TK
 
+ // 2.1.6 Operadores de asignación y definición
+%token asignacion_TK
+%token creacion_tipo_TK
+%token definicion_tipo_var_TK
+%token subrango_TK
+
+ // 2.1.7 Símbolos delimitadores y separadores
 %token composicion_secuencial_TK
 %token separador_TK
-%token definicion_tipo_var_TK
-%token creacion_tipo_TK
+%token punto_TK
+%token parentesis_apertura_TK
+%token parentesis_cierre_TK
 %token inicio_array_TK
 %token fin_array_TK
 %token entrada_array_TK
 %token salida_array_TK
 %token acceso_tupla_TK
-%token punto_TK
-%token parentesis_apertura_TK
-%token parentesis_cierre_TK
-%token igualdad_TK
-%token mayor_estricto_TK
-%token menor_estricto_TK
+
+ // 2.1.8 Otros tokens
+%token comentario_TK
+%token entonces_TK
+%token si_no_si_TK
+
+
+ //PARTE 2.2: Definiciones de prioridades
+
+ // 2.2.1 Operadores lógicos
+%left o_TK
+%left y_TK
+%right no_TK
+
+ // 2.2.2 Operadores relacionales
+%left igualdad_TK
+%left distinto_TK
+%left mayor_estricto_TK
+%left menor_estricto_TK
+%left mayor_igual_TK
+%left menor_igual_TK
+
+ // 2.2.3 Operadores aritméticos
 %left suma_TK resta_TK
-%left producto_TK division_TK
-
-
- //	%token <literal> literal_TK
- //	%token fconst_TK
- //	%token igual_TK
- //	%token <cadena> nombreCteTK
- //	%token puntoYComa_TK
-	
-
-
- //PARTE 2.2: Definiciones (algunas innecearias) de prioridades
-
+%left producto_TK division_TK div_TK mod_TK
 
 
  //PARTE 2.3: Creamos el union necesario para valores de flex y traducciones de bison
