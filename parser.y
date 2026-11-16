@@ -86,7 +86,7 @@
 %token no_TK
 %token o_TK
 %token y_TK
-%token igualdad_TK
+%token igual_TK
 %token distinto_TK
 %token mayor_estricto_TK
 %token menor_estricto_TK
@@ -95,7 +95,6 @@
 
  // 2.1.6 Operadores de asignación y definición
 %token asignacion_TK
-%token creacion_tipo_TK
 %token definicion_tipo_var_TK
 %token subrango_TK
 
@@ -107,9 +106,6 @@
 %token parentesis_cierre_TK
 %token inicio_array_TK
 %token fin_array_TK
-%token entrada_array_TK
-%token salida_array_TK
-%token acceso_tupla_TK
 
  // 2.1.8 Otros tokens
 %token comentario_TK
@@ -125,7 +121,7 @@
 %right no_TK
 
  // 2.2.2 Operadores relacionales
-%left igualdad_TK
+%left igual_TK
 %left distinto_TK
 %left mayor_estricto_TK
 %left menor_estricto_TK
@@ -205,7 +201,7 @@ declaracion_var : var_TK lista_d_var fvar_TK composicion_secuencial_TK {
 	;
 
 lista_d_tipo : /*empty*/ {}
-	| identificador_TK creacion_tipo_TK d_tipo composicion_secuencial_TK lista_d_tipo{
+	| identificador_TK igual_TK d_tipo composicion_secuencial_TK lista_d_tipo{
 
 		}
 	;
@@ -258,19 +254,19 @@ lista_campos : /*empty*/ {}
 lista_d_cte : /*empty*/ {
 
 		} 
-	| identificador_TK creacion_tipo_TK literal_booleano_TK {
+	| identificador_TK igual_TK literal_booleano_TK {
 
 		}
-	| identificador_TK creacion_tipo_TK literal_cadena_TK {
+	| identificador_TK igual_TK literal_cadena_TK {
 
 		}
-	| identificador_TK creacion_tipo_TK literal_caracter_TK {
+	| identificador_TK igual_TK literal_caracter_TK {
 
 		}
-	| identificador_TK creacion_tipo_TK literal_entero_TK {
+	| identificador_TK igual_TK literal_entero_TK {
 
 		}
-	| identificador_TK creacion_tipo_TK literal_real_TK {
+	| identificador_TK igual_TK literal_real_TK {
 
 		}
 	;
@@ -362,7 +358,7 @@ expresion : expresion suma_TK expresion {
 	| expresion mayor_estricto_TK expresion {
 
 		}
-	| expresion igualdad_TK expresion {
+	| expresion igual_TK expresion {
 
 		}
 	| expresion distinto_TK expresion {
@@ -382,10 +378,10 @@ expresion : expresion suma_TK expresion {
 operando : identificador_TK {
 
 		}
-	| operando acceso_tupla_TK operando {
+	| operando punto_TK operando {
 
 		}
-	| operando entrada_array_TK expresion salida_array_TK {
+	| operando inicio_array_TK expresion fin_array_TK {
 
 		}
 	| operando ref_TK {

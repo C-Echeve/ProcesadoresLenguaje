@@ -42,18 +42,14 @@ subrango_DR \.\.
 definicion_tipo_var_DR :
 entonces_DR \->
 si_no_si_DR \[\]
-creacion_tipo_DR =
 inicio_array_DR \[
 fin_array_DR \]
-entrada_array_DR \[
-salida_array_DR \]
-acceso_tupla_DR \.
 punto_DR \.
 
  // Operadores relacionales y aritmeticos
 parentesis_apertura_DR \(
 parentesis_cierre_DR \)
-igualdad_DR =
+igual_DR =
 mayor_estricto_DR >
 menor_estricto_DR <
 mayor_igual_DR >=
@@ -384,10 +380,6 @@ y_DR (?i:y)
 	// printf("(definicion_tipo_var_TK, %c)\n", yytext[0]);
 	return definicion_tipo_var_TK;
 }
-{creacion_tipo_DR} {
-	// printf("(creacion_tipo_TK, %c)\n", yytext[0]);
-	return creacion_tipo_TK;
-}
 {inicio_array_DR} {
 	// printf("(inicio_array_TK, %c)\n", yytext[0]);
 	return inicio_array_TK;
@@ -395,19 +387,6 @@ y_DR (?i:y)
 {fin_array_DR} {
 	// printf("(fin_array_TK, %c)\n", yytext[0]);
 	return fin_array_TK;
-}
-{entrada_array_DR} {
-	// printf("(entrada_array_TK, %c)\n", yytext[0]);
-	return entrada_array_TK;
-}
-{salida_array_DR} {
-	// printf("(salida_array_TK, %c)\n", yytext[0]);
-	return salida_array_TK;
-}
-
-{acceso_tupla_DR} {
-	// printf("(acceso_tupla_TK, %c)\n", yytext[0]);
-	return acceso_tupla_TK;
 }
 
 {punto_DR} {
@@ -422,9 +401,9 @@ y_DR (?i:y)
 	// printf("(parentesis_cierre_TK, %c)\n", yytext[0]);
 	return parentesis_cierre_TK;
 }
-{igualdad_DR} {
-	// printf("(igualdad_TK, %c)\n", yytext[0]);
-	return igualdad_TK;
+{igual_DR} {
+	// printf("(igual_TK, %c)\n", yytext[0]);
+	return igual_TK;
 }
 {mayor_estricto_DR} {
 	// printf("(mayor_estricto_TK, %c)\n", yytext[0]);
