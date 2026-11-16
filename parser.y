@@ -139,11 +139,7 @@
 
  //PARTE 2.3: Creamos el union necesario para valores de flex y traducciones de bison
 
-%union{
-	char* cadena;
-	LiteralT literal;
-	int entero;
-}
+
 
  //PARTE 2.4: Asignacion de traducciones a las variables
 
@@ -514,9 +510,7 @@ int main(int argc, char **argv){
 		yyin = fopen(argv[0], "r");
 	else
 		yyin = stdin;
-	tc = nuevaTablaDeConstantes();
 	yyparse();
-	imprimeTablaDeConstantes(tc);
 }
 
 void yyerror(char * s){

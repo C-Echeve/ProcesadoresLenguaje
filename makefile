@@ -1,27 +1,16 @@
-# Nombre del compilador y banderas
-CC = gcc
-CFLAGS = -Wall -O2
+compilador: parser.tab.c lex.yy.o
+	gcc parser.tab.c lex.yy.o -lfl -o compilador
 
-# Nombre del ejecutable final
-TARGET = a.out
+parser.tab.c parser.tab.h: parser.y
+	bison -d -v -t parser.y
 
-# Archivos fuente
-LEX_FILE = scanner.l
-C_FILE = lex.yy.c
-OBJ_FILE = lex.yy.o
+lex.yy.o: scanner.l parser.tab.h
+	flex scanner.l
+	gcc -c lex.yy.c
 
-# Regla principal
-all: $(TARGET)
+scanner: scanner.l
+	flex scanner.l
+	gcc lex.yy.c -lfl -o scanner
 
-# Crear el ejecutable
-$(TARGET): $(C_FILE)
-	$(CC) $(CFLAGS) $(C_FILE) -o $(TARGET) -lfl
-
-# Generar C desde Flex
-$(C_FILE): $(LEX_FILE)
-	flex $(LEX_FILE)
-
-# Limpiar archivos generados
 clean:
-	rm -f $(TARGET) $(C_FILE) $(OBJ_FILE)
-	rm *.tab.* lex.yy.c *.output
+	rm -f compilador scanner parser.tab.* parser.output lex.yy.c lex.yy.o
