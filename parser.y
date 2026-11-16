@@ -312,35 +312,25 @@ decl_sal : sal_TK lista_d_var {
 		}
 	;
 
-expresion : exp_a {
+expresion : expresion suma_TK expresion {
 
 		}
-	| exp_b {
+	| expresion resta_TK expresion {
 
 		}
-	| funcion_ll {
+	| expresion producto_TK expresion {
 
 		}
-	;
-exp_a : exp_a suma_TK exp_a {
+	| expresion division_TK expresion {
 
 		}
-	| exp_a resta_TK exp_a {
+	| expresion mod_TK expresion {
 
 		}
-	| exp_a producto_TK exp_a {
+	| expresion div_TK expresion {
 
 		}
-	| exp_a division_TK exp_a {
-
-		}
-	| exp_a mod_TK exp_a {
-
-		}
-	| exp_a div_TK exp_a {
-
-		}
-	| parentesis_apertura_TK exp_a parentesis_cierre_TK {
+	| parentesis_apertura_TK expresion parentesis_cierre_TK {
 
 		}
 	| operando {
@@ -352,23 +342,19 @@ exp_a : exp_a suma_TK exp_a {
 	| literal_real_TK {
 
 		}
-	| resta_TK exp_a {
+	| resta_TK expresion {
 
 		}
-	| suma_TK exp_a {
+	| suma_TK expresion {
 
 		}
-	;
-exp_b : exp_b y_TK exp_b {
+ 	| expresion y_TK expresion {
 
 		}
-	| exp_b o_TK exp_b {
+	| expresion o_TK expresion {
 
 		}
-	| no_TK exp_b {
-
-		}
-	| operando {
+	| no_TK expresion {
 
 		}
 	| literal_booleano_TK { 
@@ -392,7 +378,11 @@ exp_b : exp_b y_TK exp_b {
 	| expresion menor_igual_TK expresion {
 
 		}
+	| funcion_ll {
+
+		}
 	;
+
 operando : identificador_TK {
 
 		}
