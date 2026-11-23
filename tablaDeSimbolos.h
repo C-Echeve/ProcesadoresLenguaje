@@ -16,9 +16,9 @@ typedef struct tablaDeSimbolos {
 	Celda tabla[100];
 } TablaDeSimbolos;
 
-void nuevaTablaDeVariables(TablaDeSimbolos *);
-bool insertaVariable(TablaDeSimbolos *, char *, LiteralT);
-void modificaVariable(TablaDeSimbolos *, char *, LiteralT);
-void imprimeTablaDeVariables(TablaDeSimbolos);
+void nuevaTablaDeSimbolos(TablaDeSimbolos *);
+bool insertaSimbolo(TablaDeSimbolos *, char *, LiteralT);
+void modificaSimbolo(TablaDeSimbolos *, char *, LiteralT);
+void imprimeTablaDeSimbolos(TablaDeSimbolos);
 
 #endif
