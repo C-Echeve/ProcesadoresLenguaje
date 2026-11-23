@@ -3,12 +3,18 @@
 
 #include <stdbool.h>
 #include "nombresDeTipos.h"
-#include "nombresDeContenedores.h"
+#include "nombresDeSimbolos.h"
+
+typedef union tipoSimbolo {
+	Variable variable;
+	Constante constante;
+} TipoSimbolo;
 
 typedef struct celda {
 	char * nombre;
-	NombreDeCont cont; 
 	NombreDeTipoT tipo;
+	NombreDeSimbolo simb;
+	TipoSimbolo tsimb;
 } Celda;
 
 typedef struct tablaDeSimbolos {
