@@ -23,7 +23,8 @@ typedef struct tablaDeSimbolos {
 } TablaDeSimbolos;
 
 void nuevaTablaDeSimbolos(TablaDeSimbolos *);
-bool insertaSimbolo(TablaDeSimbolos *, char *, LiteralT);
+bool insertaVariable(TablaDeSimbolos *, char *);
+bool insertaVariable(TablaDeSimbolos *, char *, NombreDeTipoT);
 void modificaSimbolo(TablaDeSimbolos *, char *, LiteralT);
 void imprimeTablaDeSimbolos(TablaDeSimbolos);
 

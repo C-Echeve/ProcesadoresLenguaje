@@ -13,13 +13,14 @@
 	#include <stdlib.h> //Para usar exit()
 	#include <string.h> //Para trabajar con cadenas de caracteres
 	
-	// #include "nombresDeTipos.h"
-	// #include "literal.h"
-	// #include "tablaDeConstantes.h"
+	#include "nombresDeTipos.h"
+	#include "literal.h"
+	#include "tablaDeSimbolos.h"
+
 	int yylex(); // Usamos la funcion que se crea gracias a flex
 	void yyerror(char *); // Prototipo de una funcion necesaria
 	extern FILE* yyin; // Usamos la varible de Flex en la que viene la entrada
-	// TablaDeConstantes tc; //Es donde guardaremos las constantes
+	TablaDeSimbolos ts; // Se guardan las constantes
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
 
@@ -143,10 +144,12 @@
 	char* cadena;
 	LiteralT literal;
 	int entero;
+	TradExpArit expA;
 }
 
  //PARTE 2.4: Asignacion de traducciones a las variables
 
+%token <cadena> identificador_TK
  // %type <entero> listaDeclConstantesV  //para contar las que se definen
 
 %%
@@ -204,7 +207,7 @@ declaracion_cte : const_TK lista_d_cte fconst_TK composicion_secuencial_TK {
 		}
 	;
 declaracion_var : var_TK lista_d_var fvar_TK composicion_secuencial_TK {
-
+			printf("COMPILADOR: Se ha creado la tabla de variables con %d constantes\n", $2);
 		}
 	;
 
@@ -230,19 +233,19 @@ d_tipo : identificador_TK {
 
 		}
 	| entero_TK {
-
+			$$ = ENTERO;
 		}
 	| booleano_TK {
-
+			$$ = BOOLEANO;
 		}
 	| caracter_TK {
-
+			$$ = CARACTER;
 		}
 	| real_TK {
-
+			$$ = REAL;
 		}
 	| cadena_TK {
-
+			$$ = CADENA;
 		}				
 	;
 
@@ -282,14 +285,15 @@ lista_d_var : /*empty*/ {
 
 		}
 	| lista_id definicion_tipo_var_TK d_tipo composicion_secuencial_TK lista_d_var {
-
+			modificaSimbolo(&ts, $1, $3);
 		}
 	;
 lista_id : identificador_TK separador_TK lista_id {
-
+			$$ = $1 + $3;
 		}
 	| identificador_TK {
-
+			$$ = 1;
+			insertaSimbolo(&ts, $1);
 		}
 	;
 
@@ -304,11 +308,11 @@ decl_ent_sal : decl_ent {
 		}
 	;
 decl_ent : ent_TK lista_d_var {
-
+			inputVariable(&ts, $_);
 		}
 	;
 decl_sal : sal_TK lista_d_var {
-
+			inputVariable(&ts, $_);
 		}
 	;
 
@@ -514,9 +518,9 @@ int main(int argc, char **argv){
 		yyin = fopen(argv[0], "r");
 	else
 		yyin = stdin;
-	tc = nuevaTablaDeConstantes();
+	ts = nuevaTablaDeSimbolos();
 	yyparse();
-	imprimeTablaDeConstantes(tc);
+	imprimeTablaDeSimbolos(ts);
 }
 
 void yyerror(char * s){
