@@ -12,6 +12,8 @@
 	#include <stdio.h> //Para poder escribir en el terminal
 	#include <stdlib.h> //Para usar exit()
 	#include <string.h> //Para trabajar con cadenas de caracteres
+	#include "nombresDeTipos.h"
+	#include "literal.h" //Para poder usar el tipo literal
 	#include "parser.tab.h"
 	
 	void errorEnScanner(char*, char*); //prototipo necesario para compilar
@@ -23,7 +25,7 @@
 letra_DR [A-Z]|[a-z]
 cifra_DR [0-9]
 letra_o_cifra_DR {letra_DR}|{cifra_DR}
-identificador_DR {letra_DR}{letra_o_cifra_DR}*
+identificador_DR {letra_DR}{letra_o_cifra_DR|_}*
 
 verdadero_DR (?i:verdadero)
 falso_DR (?i:falso)
@@ -294,11 +296,15 @@ y_DR (?i:y)
 
 {literal_booleano_DR} {
 	// printf("(literal_booleano_TK, %s)\n",yytext);
-	return literal_booleano_TK;
+	yylval.literal.tipoDelValor = BOOLEANO;
+	yylval.literal.valor.valorBooleano = yytext;
+	return literal_TK;
 }
 {literal_entero_DR} {
 	// printf("(literal_entero_TK, %ld)\n", (long) strtod(yytext, NULL));
-	return literal_entero_TK;
+	yylval.literal.tipoDelValor = ENTERO;
+	yylval.literal.valor.valorEntero = atoi(yytext);
+	return literal_TK;
 }
 {literal_real_DR} {
 	char * cadena;
@@ -312,26 +318,27 @@ y_DR (?i:y)
 		errorEnScanner("No hay memoria para strndup() al leer %s\n", yytext);
 	} else {
 		// printf("(literal_real_TK, %f)\n", atof(cadena));
+		yylval.literal.tipoDelValor = REAL;
+		yylval.literal.valor.valorReal = atof(cadena);
 		free(cadena); //Para no sobrecargar la memoria
 	}
-	return literal_real_TK;
+	return literal_TK;
 }
 {literal_caracter_DR} {
-	/* Por el momento literal_caracter_DR solo admite 1 unico caracter
-	   para que acepte "/"" y el caracter sea " habria que cambiar la
-	   definicion a \"([^\"]|\/")\"
-	if ((yytext[1] == '/' ) && (strlen(yytext) > 3)) {
-		// printf("(literal_caracter_TK, %c)\n", yytext[2]);
-	} else {
-		// printf("(literal_caracter_TK, %c)\n", yytext[1]);
-	}
-	*/
 	// printf("(literal_caracter_TK, %c)\n", yytext[1]);
-	return literal_caracter_TK;
+	yylval.literal.tipoDelValor = CARACTER;
+	yylval.literal.valor.valorCaracter = yytext[1];
+	return literal_TK;
 }
 {literal_cadena_DR} {
 	// printf("(literal_cadena_TK, %s)\n", yytext);
-	return literal_cadena_TK;
+	yylval.literal.tipoDelValor = CADENA;
+	if ((yylval.literal.valor.valorCadena = strdup(yytext)) == NULL) {
+		errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
+	}
+	else {
+		return literal_TK;
+	}
 }
 
 {identificador_DR} {
