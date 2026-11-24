@@ -14,6 +14,7 @@
 	#include <string.h> //Para trabajar con cadenas de caracteres
 	
 	#include "nombresDeTipos.h"
+	#include "listaDeIdentificadores.h"
 	#include "literal.h"
 	#include "tablaDeSimbolos.h"
 
@@ -73,7 +74,7 @@
 %token literal_cadena_TK
 
  // 2.1.3 Identificador
-%token identificador_TK
+%token <cadena> identificador_TK
 
  // 2.1.4 Operadores aritméticos
 %token suma_TK
@@ -138,6 +139,8 @@
 
 %union{
 	char* cadena;
+	NombreDeTipoT tipo;
+	ListaIdentificadores lista_id;
 	LiteralT literal;
 	int entero;
 	TradExpArit expA;
@@ -145,7 +148,8 @@
 
  //PARTE 2.4: Asignacion de traducciones a las variables
 
-%token <cadena> identificador_TK
+%type <lista_id> lista_id
+%type <tipo> d_tipo
  // %type <entero> listaDeclConstantesV  //para contar las que se definen
 
 %%
@@ -203,7 +207,7 @@ declaracion_cte : const_TK lista_d_cte fconst_TK composicion_secuencial_TK {
 		}
 	;
 declaracion_var : var_TK lista_d_var fvar_TK composicion_secuencial_TK {
-			printf("COMPILADOR: Se ha creado la tabla de variables con %d constantes\n", $2);
+			// printf("COMPILADOR: Se ha creado la tabla de variables con %d variables\n", $2);
 		}
 	;
 
@@ -281,15 +285,15 @@ lista_d_var : /*empty*/ {
 
 		}
 	| lista_id definicion_tipo_var_TK d_tipo composicion_secuencial_TK lista_d_var {
-			modificaSimbolo(&ts, $1, $3);
+			// Asignar $3 (tipo) a todos los identificadores de $1
 		}
 	;
 lista_id : identificador_TK separador_TK lista_id {
-			$$ = $1 + $3;
+			// Insertar identificador en TS
+            // Propagar la información de la lista
 		}
 	| identificador_TK {
-			$$ = 1;
-			insertaSimbolo(&ts, $1);
+			// Insertar identificador en TS
 		}
 	;
 
@@ -304,11 +308,11 @@ decl_ent_sal : decl_ent {
 		}
 	;
 decl_ent : ent_TK lista_d_var {
-			inputVariable(&ts, $_);
+			// inputVariable(&ts, $_);
 		}
 	;
 decl_sal : sal_TK lista_d_var {
-			inputVariable(&ts, $_);
+			// inputVariable(&ts, $_);
 		}
 	;
 
