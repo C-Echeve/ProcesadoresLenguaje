@@ -14,6 +14,6 @@ typedef struct variable {
 
 typedef LiteralT Constante;
 
-const char* stringNombreSimbolo[] = {"CONSTANTE", "VARIABLE"};
+extern const char* stringNombreSimbolo[];
 
 #endif

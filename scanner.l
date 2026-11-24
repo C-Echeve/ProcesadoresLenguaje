@@ -14,6 +14,8 @@
 	#include <string.h> //Para trabajar con cadenas de caracteres
 	#include "nombresDeTipos.h"
 	#include "literal.h" //Para poder usar el tipo literal
+	#include "tipo.h"
+	#include "listaDeIdentificadores.h"
 	#include "parser.tab.h"
 	
 	void errorEnScanner(char*, char*); //prototipo necesario para compilar
@@ -25,7 +27,7 @@
 letra_DR [A-Z]|[a-z]
 cifra_DR [0-9]
 letra_o_cifra_DR {letra_DR}|{cifra_DR}
-identificador_DR {letra_DR}{letra_o_cifra_DR|_}*
+identificador_DR {letra_DR}({letra_o_cifra_DR}|_)*
 
 verdadero_DR (?i:verdadero)
 falso_DR (?i:falso)
@@ -125,8 +127,7 @@ y_DR (?i:y)
 	// printf("(texto_TK, )\n");
 }
 {comentario_especial_DR} {
-	/* Ignorar comentarios especiales {} */
-	// printf("(comentario_especial_TK, )\n");
+	return comentario_TK;
 }
 {delimitador_DR} {
 	/* Ignorar espacios y saltos de linea */
@@ -297,7 +298,11 @@ y_DR (?i:y)
 {literal_booleano_DR} {
 	// printf("(literal_booleano_TK, %s)\n",yytext);
 	yylval.literal.tipoDelValor = BOOLEANO;
-	yylval.literal.valor.valorBooleano = yytext;
+	if (yytext[0] == 'v' || yytext[0] == 'V') {
+		yylval.literal.valor.valorBooleano = VERDADERO;
+	} else {
+		yylval.literal.valor.valorBooleano = FALSO;
+	}
 	return literal_TK;
 }
 {literal_entero_DR} {
@@ -343,6 +348,10 @@ y_DR (?i:y)
 
 {identificador_DR} {
 	// printf("(identificador_TK, %s)\n", yytext);
+	yylval.cadena = strdup(yytext);
+	if (yylval.cadena == NULL) {
+		errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
+	}
 	return identificador_TK;
 }
 

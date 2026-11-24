@@ -68,11 +68,7 @@
 %token var_TK
 
  // 2.1.2 Literales
-%token literal_booleano_TK
-%token literal_entero_TK
-%token literal_real_TK
-%token literal_caracter_TK
-%token literal_cadena_TK
+%token <literal> literal_TK
 
  // 2.1.3 Identificador
 %token <cadena> identificador_TK
@@ -233,31 +229,28 @@ d_tipo : identificador_TK {
 
 		}
 	| entero_TK {
-			$$.clase = TIPO_SIMPLE
+			$$.clase = TIPO_SIMPLE;
 			$$.nombre = ENTERO;
 		}
 	| booleano_TK {
-			$$.clase = TIPO_SIMPLE
+			$$.clase = TIPO_SIMPLE;
 			$$.nombre = BOOLEANO;
 		}
 	| caracter_TK {
-			$$.clase = TIPO_SIMPLE
+			$$.clase = TIPO_SIMPLE;
 			$$.nombre = CARACTER;
 		}
 	| real_TK {
-			$$.clase = TIPO_SIMPLE
+			$$.clase = TIPO_SIMPLE;
 			$$.nombre = REAL;
 		}
 	| cadena_TK {
-			$$.clase = TIPO_SIMPLE
+			$$.clase = TIPO_SIMPLE;
 			$$.nombre = CADENA;
 		}				
 	;
 
 expresion_t : expresion {
-
-		}
-	| literal_caracter_TK {
 
 		}
 	;
@@ -270,19 +263,7 @@ lista_campos : /*empty*/ {}
 lista_d_cte : /*empty*/ {
 
 		} 
-	| identificador_TK igual_TK literal_booleano_TK {
-
-		}
-	| identificador_TK igual_TK literal_cadena_TK {
-
-		}
-	| identificador_TK igual_TK literal_caracter_TK {
-
-		}
-	| identificador_TK igual_TK literal_entero_TK {
-
-		}
-	| identificador_TK igual_TK literal_real_TK {
+	| identificador_TK igual_TK literal_TK {
 
 		}
 	;
@@ -292,7 +273,7 @@ lista_d_var : /*empty*/ {
 	| lista_id definicion_tipo_var_TK d_tipo composicion_secuencial_TK lista_d_var {
 			// Asignar $3 (tipo) a todos los identificadores de $1 e incluirlos en la tabla de simbolos
 			for (int i = 0; i < $1.numIds; i++) {
-				modificarTipo(&ts, $1.ids[i], $3);
+				insertaVariable(&ts, $1.ids[i], $3);
 			}
 		}
 	;
@@ -351,10 +332,7 @@ expresion : expresion suma_TK expresion {
 	| operando {
 
 		}
-	| literal_entero_TK {
-
-		}
-	| literal_real_TK {
+	| literal_TK {
 
 		}
 	| resta_TK expresion {
@@ -370,9 +348,6 @@ expresion : expresion suma_TK expresion {
 
 		}
 	| no_TK expresion {
-
-		}
-	| literal_booleano_TK { 
 
 		}
 	| expresion menor_estricto_TK expresion {
@@ -529,7 +504,7 @@ int main(int argc, char **argv){
 		yyin = fopen(argv[0], "r");
 	else
 		yyin = stdin;
-	ts = nuevaTablaDeSimbolos();
+	nuevaTablaDeSimbolos(&ts);
 	yyparse();
 	imprimeTablaDeSimbolos(ts);
 
