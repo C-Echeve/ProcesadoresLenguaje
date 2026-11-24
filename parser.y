@@ -14,6 +14,7 @@
 	#include <string.h> //Para trabajar con cadenas de caracteres
 	
 	#include "nombresDeTipos.h"
+	#include "tipo.h"
 	#include "listaDeIdentificadores.h"
 	#include "literal.h"
 	#include "tablaDeSimbolos.h"
@@ -139,7 +140,7 @@
 
 %union{
 	char* cadena;
-	NombreDeTipoT tipo;
+	Tipo tipo;
 	ListaIdentificadores lista_id;
 	LiteralT literal;
 	int entero;
@@ -150,7 +151,6 @@
 
 %type <lista_id> lista_id
 %type <tipo> d_tipo
- // %type <entero> listaDeclConstantesV  //para contar las que se definen
 
 %%
 
@@ -207,7 +207,7 @@ declaracion_cte : const_TK lista_d_cte fconst_TK composicion_secuencial_TK {
 		}
 	;
 declaracion_var : var_TK lista_d_var fvar_TK composicion_secuencial_TK {
-			// printf("COMPILADOR: Se ha creado la tabla de variables con %d variables\n", $2);
+			printf("COMPILADOR: Se han añadido las variables a la tabla de simbolos\n");
 		}
 	;
 
@@ -233,19 +233,24 @@ d_tipo : identificador_TK {
 
 		}
 	| entero_TK {
-			$$ = ENTERO;
+			$$.clase = TIPO_SIMPLE
+			$$.nombre = ENTERO;
 		}
 	| booleano_TK {
-			$$ = BOOLEANO;
+			$$.clase = TIPO_SIMPLE
+			$$.nombre = BOOLEANO;
 		}
 	| caracter_TK {
-			$$ = CARACTER;
+			$$.clase = TIPO_SIMPLE
+			$$.nombre = CARACTER;
 		}
 	| real_TK {
-			$$ = REAL;
+			$$.clase = TIPO_SIMPLE
+			$$.nombre = REAL;
 		}
 	| cadena_TK {
-			$$ = CADENA;
+			$$.clase = TIPO_SIMPLE
+			$$.nombre = CADENA;
 		}				
 	;
 
@@ -285,15 +290,21 @@ lista_d_var : /*empty*/ {
 
 		}
 	| lista_id definicion_tipo_var_TK d_tipo composicion_secuencial_TK lista_d_var {
-			// Asignar $3 (tipo) a todos los identificadores de $1
+			// Asignar $3 (tipo) a todos los identificadores de $1 e incluirlos en la tabla de simbolos
+			for (int i = 0; i < $1.numIds; i++) {
+				modificarTipo(&ts, $1.ids[i], $3);
+			}
 		}
 	;
 lista_id : identificador_TK separador_TK lista_id {
 			// Insertar identificador en TS
-            // Propagar la información de la lista
+			$$ = $3;
+			insertarLista(&$$, $1);
 		}
 	| identificador_TK {
 			// Insertar identificador en TS
+			$$.numIds = 0;
+			insertarLista(&$$, $1);
 		}
 	;
 

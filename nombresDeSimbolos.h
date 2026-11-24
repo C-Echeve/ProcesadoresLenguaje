@@ -1,5 +1,5 @@
-#ifndef FFF_NOMBRESDESIMBOLOS_H
-#define FFF_NOMBRESDESIMBOLOS_H
+#ifndef NOMBRESDESIMBOLOS_H
+#define NOMBRESDESIMBOLOS_H
 
 #include "literal.h"
 
@@ -13,5 +13,7 @@ typedef struct variable {
 } Variable;
 
 typedef LiteralT Constante;
+
+const char* stringNombreSimbolo[] = {"CONSTANTE", "VARIABLE"};
 
 #endif

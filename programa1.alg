@@ -3,8 +3,10 @@ algoritmo intercambio;
 	sal a, b: entero;
 {Prec: a= A AND b = B}
 	var
-		aux: entero;
-	fvar
+		uno, dos : entero;
+    	x : real;
+    	char1, char2 : char;
+	fvar;
 	aux:= a;
 	a:= b;
 	b:= aux

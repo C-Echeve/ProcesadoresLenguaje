@@ -9,4 +9,6 @@ typedef enum nombreDeTipoT {
 	REAL
 } NombreDeTipoT;
 
+const char* stringNombreTipo[] = {"BOOLEANO", "CADENA", "CARACTER", "ENTERO", "REAL"};
+
 #endif

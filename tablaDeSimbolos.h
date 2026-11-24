@@ -1,9 +1,10 @@
-#ifndef FFF_TABLA_DE_SIMBOLOS_H
-#define FFF_TABLA_DE_SIMBOLOS_H
+#ifndef TABLA_DE_SIMBOLOS_H
+#define TABLA_DE_SIMBOLOS_H
 
 #include <stdbool.h>
-#include "nombresDeTipos.h"
+#include "tipo.h"
 #include "nombresDeSimbolos.h"
+#include "literal.h"
 
 typedef union tipoSimbolo {
 	Variable variable;
@@ -12,9 +13,10 @@ typedef union tipoSimbolo {
 
 typedef struct celda {
 	char * nombre;
-	NombreDeTipoT tipo;
+	Tipo tipo;
 	NombreDeSimbolo simb;
 	TipoSimbolo tsimb;
+	LiteralT valor;
 } Celda;
 
 typedef struct tablaDeSimbolos {
@@ -23,9 +25,9 @@ typedef struct tablaDeSimbolos {
 } TablaDeSimbolos;
 
 void nuevaTablaDeSimbolos(TablaDeSimbolos *);
-bool insertaVariable(TablaDeSimbolos *, char *);
-bool insertaVariable(TablaDeSimbolos *, char *, NombreDeTipoT);
-void modificaSimbolo(TablaDeSimbolos *, char *, LiteralT);
+bool insertaVariable(TablaDeSimbolos *, char *, Tipo);
+bool insertaConstante(TablaDeSimbolos *, char *, LiteralT);
+// void modificaSimbolo(TablaDeSimbolos *, char *, LiteralT);
 void imprimeTablaDeSimbolos(TablaDeSimbolos);
 
 #endif
